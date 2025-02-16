@@ -11,7 +11,7 @@ MERCHANT_SECRET_KEY=str(os.urandom(21))  # use a static if you wanna acess payme
 
 MERCHANT="Example"  # set this to your comapy or project name
 
-SERVER = "http://nationscity:5001"  # only change if self hosted
+SERVER = "https://fakepay.mooo.com"  # only change if self hosted
 
 
 transactions={}
