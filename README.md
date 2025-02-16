@@ -87,12 +87,22 @@ python demo_webapp.py
     "success": "https://example.com/success",
     "fail": "https://example.com/fail",
     "cancel": "https://example.com/cancel"
-  }
+  },
+  "merchant_secret" : "EXAMPLE_SECRET"
 }
 ```
 
 ### Check Payment Status
 **Endpoint**: `POST /api/payment/order/status`
+
+**Request Example**:
+```json
+{
+  "merchant": "ExampleStore",
+  "merchant_secret" : "EXAMPLE_SECRET"
+  "transactionid" : 00000
+}
+```
 
 **Response States**:
 - `pending` - Payment in progress
