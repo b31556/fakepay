@@ -1,0 +1,31 @@
+<a>Email:</a><input type="text" id="email">
+<a>Name:</a><input type="text" id="name">
+<a>Amount:</a><input type="text" id="amount">
+
+<button onclick="send()">SEND</button>
+<script>
+    async function send() {
+        var email = document.getElementById("email").value;
+        var name = document.getElementById("name").value;
+        var amount = document.getElementById("amount").value;
+
+        // Construct query parameters
+        var params = new URLSearchParams({
+            email: email,
+            name: name,
+            amount: amount
+        });
+
+        // Fetch request with GET method and query parameters
+        try {
+            let response = await fetch(`/start_payment?${params}`, {
+                method: 'GET'
+            });
+
+            document.location.href=await response.text()
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+</script>

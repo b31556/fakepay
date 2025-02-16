@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway - {{ merchant }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .payment-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .payment-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 2rem;
+        }
+        .payment-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .payment-details {
+            padding: 2rem;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .detail-label {
+            color: #666;
+            font-weight: 500;
+        }
+        .detail-value {
+            color: #333;
+            font-weight: 600;
+        }
+        .confirm-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="payment-card">
+            <div class="payment-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="payment-brand">{{ merchant }}</div>
+                    <div class="text-end">
+                        <div class="h4">{{ "%.2f"|format(amount) }} {{ currency }}</div>
+                        <small>Payment Request</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-details">
+                <div class="mb-4">
+                    <h4 class="mb-4"><i class="fas fa-receipt me-2"></i>Payment Details</h4>
+                    <div class="detail-item">
+                        <span class="detail-label">Order ID:</span>
+                        <span class="detail-value">{{ order_id }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Payment Method:</span>
+                        <span class="detail-value">
+                            <i class="fab fa-cc-{{ payment_method|lower }} me-2"></i>{{ payment_method|upper }}
+                        </span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Date & Time:</span>
+                        <span class="detail-value">{{ timestamp }}</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="mb-4"><i class="fas fa-user-circle me-2"></i>Customer Information</h4>
+                    <div class="detail-item">
+                        <span class="detail-label">Name:</span>
+                        <span class="detail-value">{{ name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value">{{ email }}</span>
+                    </div>
+                </div>
+
+                <form method="GET" action="/callback/confirmed/{{ code }}">
+                    <input type="hidden" name="code" value="{{ code }}">
+                    <input type="hidden" name="order_id" value="{{ order_id }}">
+                    <input type="hidden" name="amount" value="{{ amount }}">
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn confirm-btn text-white rounded-pill">
+                            <i class="fas fa-lock me-2"></i>Confirm Payment of {{ "%.2f"|format(amount) }} {{ currency }}
+                        </button>
+                        <a href="/callback/canceled/{{ code }}" class="btn btn-outline-secondary rounded-pill">
+                            <i class="fas fa-times-circle me-2"></i>Cancel Payment
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-danger mt-3">
+            <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent immediate form submission
+            const btn = this.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+            
+            // Wait 2 seconds before redirecting
+            setTimeout(() => {
+                window.location.href = "/callback/confirmed/{{ code }}";
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
