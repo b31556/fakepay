@@ -79,6 +79,10 @@ def verify_signature(data, signature):
     expected_signature = hmac.new(SECRET_KEY.encode(), message.encode(), hashlib.sha256).hexdigest()
     return hmac.compare_digest(expected_signature, signature)
 
+@app.route("/")
+def rettogit():
+    return flask.redirect("https://github.com/b31556/fakepay")
+
 
 @app.route("/api/payment/order/status", methods=["POST"])
 def payment_order_status():
@@ -205,6 +209,6 @@ def callback_confirmed(code):
 
 
  
-
-app.run("0.0.0.0",5001,debug=True,use_reloader=False)
+if __name__=="__main__":
+    app.run("0.0.0.0",5001,debug=True,use_reloader=False)
 
