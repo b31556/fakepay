@@ -11,8 +11,8 @@ A secure and modern payment gateway solution with merchant integration examples.
 ![image](https://github.com/user-attachments/assets/53092621-8c97-43f3-b6e2-5b9d56be1620)
 
 ## Usage (no installation needed)
-- See the examples please, they will work right away and they are easy to build on top
-- or just install the python package for the easiest way
+- Download the fakepay.py from the client folder to your project
+- use it as it's showed in the package_example.py
 
 
 
