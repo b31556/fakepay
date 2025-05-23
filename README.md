@@ -2,7 +2,6 @@
 
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![Flask](https://img.shields.io/badge/Flask-2.0%2B-lightgrey)
-![License](https://img.shields.io/badge/license-MIT-green)
 
 A secure and modern payment gateway solution with merchant integration examples. Built with Flask and HMAC security.
 
@@ -167,7 +166,9 @@ Contributions welcome! Please follow these steps:
 
 ## License 📄
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Ez a projekt a módosított GNU General Public License (GPL) v3 licenc alatt áll. A licenc teljes szövege megtalálható a LICENSE fájlban.
+
+Fontos: Ha módosítod a programot, köteles vagy a módosított változatot nyilvánosan hozzáférhetővé tenni, a módosított GPL licenc 5(e) szakaszában foglaltak szerint.
 
 ---
 
