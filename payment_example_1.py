@@ -38,7 +38,7 @@ def start_payment(email,name,amount,orderid):
 
     signature = create_signature(data)
     headers = {"Signature": signature, "Content-Type": "application/json"}
-    response = requests.post("http://127.0.0.1:5001/api/payment/order/make", json=data, headers=headers)
+    response = requests.post("https://fakepay.mooo.com/api/payment/order/make", json=data, headers=headers)
     
     print("Szerver válasza:", response.json())
 
@@ -51,7 +51,7 @@ def start_payment(email,name,amount,orderid):
         signature = create_signature(data)
         headers = {"Signature": signature, "Content-Type": "application/json"}
         try:
-            response = requests.post(f"http://127.0.0.1:5001/api/payment/order/status", json=data, headers=headers)
+            response = requests.post(f"https://fakepay.mooo.com/api/payment/order/status", json=data, headers=headers)
             print(response.text)
         except:
             print("cant acess")
